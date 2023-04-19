@@ -5,6 +5,7 @@ const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 require("./db/conn");
+const UserRoute = require('./routers/Users');
 require('dotenv').config();
 
 
@@ -18,6 +19,7 @@ const corsOptions = {
     optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
+app.use(UserRoute);
 
 app.listen(port, err => {
     if (err)

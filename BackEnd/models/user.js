@@ -43,11 +43,9 @@ const userSchema = new mongoose.Schema({
     professional_info: {
         highest_education: {
             type: String,
-            required: true
         },
         currently_doing: {
             type: String,
-            required: true
         }
     },
     password: {
