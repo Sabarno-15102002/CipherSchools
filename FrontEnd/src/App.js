@@ -6,10 +6,12 @@ import Ciphermap from "./Component/Ciphermap";
 import Social from "./Component/Social";
 import Proffesional from "./Component/Proffesional";
 import Password from "./Component/Password";
+import Navbar from "./Component/Navbar";
 function App() {
   
   return (
     <div className="App">
+      <Navbar/>
       <IntroDiv />
       <About />
       <Ciphermap/>
