@@ -68,6 +68,9 @@ exports.loginUser = (req, res) => {
                     const token = user.generateAuthToken();
                     let data = {
                         token: token,
+                        fname: user.fname,
+                        lname: user.lname,
+                        email: user.email,
                         message: "logged in successfully",
                     };
                     console.log(token);
@@ -100,3 +103,7 @@ exports.getAccount = async (req, res, next) => {
         next(error);
     }
 };
+
+// exports.editUser = async(req,res) => {
+    
+// };
