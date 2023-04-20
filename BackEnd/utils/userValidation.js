@@ -14,7 +14,13 @@ const password = Joi.string().min(6).max(16).pattern(/^[a-zA-Z0-9]/).required().
     'string.max': `Password should have a maximum length of {#limit}`,
 });
 
-const name = Joi.string().min(4).max(30).pattern(/^[a-zA-Z' ]{3,20}$/).required().messages({
+const fname = Joi.string().min(2).max(30).pattern(/^[a-zA-Z' ]{3,20}$/).required().messages({
+    'string.pattern.base': `Your name can only contain lower and uppercase letters and apostrophes`,
+    'string.empty': `Name cannot be an empty field`,
+    'string.min': `Name should have a minimum length of {#limit}`,
+    'string.max': `Name should have a maximum length of {#limit}`,
+});
+const lname = Joi.string().min(2).max(30).pattern(/^[a-zA-Z' ]{3,20}$/).required().messages({
     'string.pattern.base': `Your name can only contain lower and uppercase letters and apostrophes`,
     'string.empty': `Name cannot be an empty field`,
     'string.min': `Name should have a minimum length of {#limit}`,
@@ -23,4 +29,4 @@ const name = Joi.string().min(4).max(30).pattern(/^[a-zA-Z' ]{3,20}$/).required(
 
 exports.loginSchema = Joi.object({ email, password });
 
-exports.registerSchema = Joi.object({ name, email, password });
+exports.registerSchema = Joi.object({ fname, lname, email, password });

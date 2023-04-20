@@ -6,9 +6,9 @@ const { registerSchema, loginSchema } = require("../utils/userValidation");
 const saltRounds = 10;
 
 exports.registerUser = (req, res) => {
-    const { name, email, password, profile_pic, web, professional_info, interests, followers } = req.body;
+    const { fname, lname, email, password, phone, profile_pic, web, professional_info, interests, followers } = req.body;
     console.log(req.body);
-    const result = registerSchema.validate({ name, email, password });
+    const result = registerSchema.validate({ fname, lname, email, password });
     if (!result.error) {
         // Check for existing user
         User.findOne({ email: email }).then((user) => {
@@ -16,9 +16,11 @@ exports.registerUser = (req, res) => {
 
             //New User created
             const newUser = new User({
-                name: req.body.name,
+                fname: req.body.fname,
+                lname: req.body.lname,
                 email: req.body.email,
                 password: req.body.password,
+                phone: req.body.phone,
                 profile_pic: req.body.profile_pic,
                 web: req.body.web,
                 professional_info: req.body.professional_info,
@@ -66,10 +68,10 @@ exports.loginUser = (req, res) => {
                     const token = user.generateAuthToken();
                     let data = {
                         token: token,
-                        isStudent: user.isStudent,
                         message: "logged in successfully",
                     };
                     console.log(token);
+                    console.log("logged in successfully");
                     res.status(200).send(JSON.stringify(data));
                 });
             });
