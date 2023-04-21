@@ -9,14 +9,14 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.post("/account", getAccount);
+router.get("/account", getAccount);
 
 router.post("/updatesocial", editUserSocial);
 
 router.post("/updateproffesional", editUserProffesionalInfo);
 
-router.post("/updateabout",editAbout);
+router.post("/updateabout", editAbout);
 
-router.post("/updatepassword",editPassword);
+router.post("/updatepassword", editPassword);
 
 module.exports = router;

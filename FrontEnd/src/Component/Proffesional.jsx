@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function Proffesional() {
   const [isClicked, setClick] = useState("false");
@@ -24,6 +24,14 @@ export default function Proffesional() {
           console.log(err);
         });
       setEdit("Edit");
+      useEffect(() => {
+        axios.get("http://localhost:5000/getAccount", { id })
+          .then((res) => {
+            setCurrentEducation(res.Account.professional_info.currently_doing);
+            setHighestEducation(res.Account.professional_info.highest_education);
+          })
+      }, [])
+
     }
   }
   return (

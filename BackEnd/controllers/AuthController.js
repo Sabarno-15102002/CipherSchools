@@ -100,7 +100,7 @@ exports.loginUser = (req, res) => {
 
 exports.getAccount = async (req, res, next) => {
   try {
-    const id = req.body.userid;
+    const id = req.body.id;
     const Account = await User.findOne({ _id: id });
     console.log(req.user);
     console.log(Account);
