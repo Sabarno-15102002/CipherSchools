@@ -11,10 +11,12 @@ export default function IntroDiv() {
   const fname = localStorage.getItem("fname") || "Login to view your name";
   const lname = localStorage.getItem("lname") || " ";
   const email = localStorage.getItem("email") || "Login to view your email";
-  const [name, setName] = useState(fname + " "+lname);
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
   const [emailid, setEmail] = useState(email);
   const [url, setUrl] = useState("");
   const [phone, setPhone] = useState("");
+  const [img, setImg] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" || localStorage.getItem(img));
   const token = localStorage.getItem("token");
   const claims = atob(token.split(".")[1]);
   const id = JSON.parse(claims)._id;
@@ -24,9 +26,9 @@ export default function IntroDiv() {
         <div className="row info-intro">
           <div className="col-3">
             <img
-              src="https://cdn.pixabay.com/photo/2018/04/06/22/26/fractalius-3297208_960_720.jpg"
+              src={img}
               alt="Profile Pic"
-              onClick={()=>{
+              onClick={() => {
                 openForm();
               }}
             />
@@ -44,17 +46,28 @@ export default function IntroDiv() {
             <p>Update your Information</p>
             <input
               type="text"
-              id="name"
-              placeholder="Name"
-              name="name"
+              id="fname"
+              placeholder="First Name"
+              name="fname"
               onChange={(e) => {
-                setName(e.target.value);
+                setFName(e.target.value);
               }}
-              value={name}
+              value={fName}
               required
             />
             <input
               type="text"
+              id="lname"
+              placeholder="Last Name"
+              name="lname"
+              onChange={(e) => {
+                setLName(e.target.value);
+              }}
+              value={fName}
+              required
+            />
+            <input
+              type="email"
               id="emailid"
               placeholder="Email"
               name="emailid"
@@ -64,7 +77,7 @@ export default function IntroDiv() {
               value={emailid}
               required
             />
-             <input
+            <input
               type="text"
               id="phone"
               placeholder="Phone Number"
@@ -75,18 +88,15 @@ export default function IntroDiv() {
               value={phone}
               required
             />
-            <input type="file" />
+            <input id="img" name="img" onChange={(e) => {
+              setImg(e.target.value);
+            }} type="file" />
             <button
               type="submit"
               className="btn btn-yellow"
               onClick={() => {
                 axios
-                  .post("https://localhost:5000/updatepassword", {
-                    id,
-                    name,
-                    emailid,
-                    url,
-                  })
+                  .post("https://localhost:5000/updateinfo", { id, fName, lName, emailid, img })
                   .then((res) => {
                     console.log(res);
                   })

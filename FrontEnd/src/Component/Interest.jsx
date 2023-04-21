@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 export default function Interest() {
-    const [interest, setinterest] = useState("");
+    const [interest, setinterest] = useState([]);
     const [isClicked, setClick] = useState("false");
     const [edit, setEdit] = useState("Edit");
     const token = localStorage.getItem("token");

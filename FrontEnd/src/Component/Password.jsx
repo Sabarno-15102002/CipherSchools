@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 export default function Password() {
-  const [isClicked, setClick] = useState(false);
-  const [edit, setEdit] = useState("Edit")
+  // const [isClicked, setClick] = useState(false);
+  // const [edit, setEdit] = useState("Edit")
   const [cpassword, setCPassword] = useState("");
   const [password, setPassword] = useState("");
   const [npassword, setNPassword] = useState("");
@@ -16,14 +16,22 @@ export default function Password() {
   const token = localStorage.getItem("token");
   const claims = atob(token.split(".")[1]);
   const id = JSON.parse(claims)._id;
-  function handleClick() {
-    setClick(!isClicked);
-    if (isClicked) {
-      setEdit("Save");
-      openForm();
-    } else {
-      setEdit("Edit");
+  function handlePasswordUpdate() {
+
+    if (npassword === conpassword) {
+      axios
+        .post("https://localhost:5000/updatepassword", { id, cpassword, npassword })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
+    else {
+      console.log("Please Confirm Your New Password")
+    }
+
   }
   return (
     <div className="password">
@@ -35,10 +43,11 @@ export default function Password() {
           <button
             className="btn btn-sm btn-yellow"
             onClick={() => {
-              handleClick();
+              handlePasswordUpdate();
+              openForm();
             }}
           >
-            {edit}
+            Change
           </button>
         </div>
         <div className="link-div">
@@ -92,14 +101,7 @@ export default function Password() {
             required
           />
           <button type="submit" className="btn btn-yellow" onClick={() => {
-            axios
-              .post("https://localhost:5000/updatepassword", { id, cpassword, npassword, conpassword })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            handlePasswordUpdate();
           }}>
             Update
           </button>

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const Joi = require("joi");
+const cloudinary = require("../utils/cloudinary");
 // const jwt = require('jsonwebtoken');
 const { registerSchema, loginSchema } = require("../utils/userValidation");
 const saltRounds = 10;
@@ -92,7 +93,8 @@ exports.loginUser = (req, res) => {
             highest_education: user.professional_info.highest_education,
             interests: user.interests,
             followers: user.followers,
-            message: "logged in successfully",
+            img: user.profile_pic.url,
+            message: "logged in successfully"
           };
           console.log(token);
           console.log("logged in successfully");
@@ -191,30 +193,60 @@ exports.editAbout = async (req, res) => {
 };
 
 exports.editPassword = async (req, res) => {
-  const { id, password } = req.body;
+  const { id, password, npassword } = req.body;
   try {
-    // bcrypt.compare(password, password).then((isMatch) => {
-    //   console.log(isMatch);
-    //   if (!isMatch) {
-    //     return res.status(400).send("Incorrect Email or Password");
-    //   }
-    //   const token = user.generateAuthToken();
-    //   let data = {
-    //     token: token,
-    //     message: "password updated in successfully",
-    //   };
-    //   console.log(token);
-    //   res.status(200).send(JSON.stringify(data));
-    // });
-    const updatedResult = await User.findByIdAndUpdate(
-      { _id: id },
-      {
-        password: password,
-      },
-      {
-        new: true,
+    User.findOne({ _id: id }).then((user) => {
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        console.log(isMatch);
+        if (!isMatch) {
+          return res.status(400).send("Incorrect Password");
+        }
+      });
+    })
+    const updatedResult = await User.findByIdAndUpdate({ _id: id }, {
+      password: npassword
+    }, {
+      new: true
+    }).then((user) => {
+      const newtoken = user.generateAuthToken();
+      let data = {
+        token: newtoken,
+      };
+      console.log(token);
+      res.status(200).send(JSON.stringify(data));
+    })
+    console.log(updatedResult);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.editInfo = async (req, res) => {
+  const { id, fName, lName, emailid, img } = req.body;
+  try {
+    const imageResult = await cloudinary.uploader.upload(img.image?.content, {
+      folder: req.body.title,
+      width: 1920,
+      crop: "scale"
+    });
+
+    const updatedResult = await User.findByIdAndUpdate({ _id: id }, {
+      fname: fName,
+      lname: lName,
+      email: emailid,
+      profile_pic: {
+        public_id: imageResult.public_id,
+        url: imageResult.secure_url
       }
-    );
+    }, {
+      new: true
+    }).then((user) => {
+      const newImg = user.profile_pic.url;
+      let data = {
+        img: newImg
+      };
+      res.status(200).send(JSON.stringify(data));
+    });
     console.log(updatedResult);
   } catch (err) {
     res.status(400).send(err);
