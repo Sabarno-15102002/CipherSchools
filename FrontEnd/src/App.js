@@ -7,12 +7,14 @@ import Social from "./Component/Social";
 import Proffesional from "./Component/Proffesional";
 import Password from "./Component/Password";
 import Navbar from "./Component/Navbar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Follower from "./Component/Followers";
 function App() {
   function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
-  return (
-    <div className="App">
+  function Home() {
+    return <div className="App">
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onClick={() => closeNav()}>&times;</a>
         <a href="#"><i className="fas fa-home-lg" ></i>&nbsp;Home</a>
@@ -22,7 +24,6 @@ function App() {
         <a href="#"><i className="fas fa-columns"></i>&nbsp;Dashboard</a>
         <a href="#"><i className="fab fa-discord"></i>&nbsp;Discord</a>
       </div>
-      <Navbar />
       <IntroDiv />
       <About />
       <Ciphermap />
@@ -30,6 +31,15 @@ function App() {
       <Proffesional />
       <Password />
     </div>
+  }
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/follower" exact element={<Follower />} />
+      </Routes>
+    </Router>
   );
 }
 

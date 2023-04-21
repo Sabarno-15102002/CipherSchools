@@ -1,5 +1,5 @@
 const URL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-export default followersArr = [
+const followersArr = [
     {
         "name": "Aarav Singh",
         "job": "College Student",
@@ -132,3 +132,4 @@ export default followersArr = [
         "followers": 34,
         "img": URL
     }]
+export default followersArr;

@@ -61,7 +61,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <span style={{ fontSize: "30px", cursor: "pointer" }} className="hamburger" onClick={() => openNav()}>&#9776; </span>
       <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" className="icon-cipher" alt="icon" />
-      <a className="navbar-brand" href="#"><strong>CipherSchools</strong></a>
+      <a className="navbar-brand" href="/"><strong>CipherSchools</strong></a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>

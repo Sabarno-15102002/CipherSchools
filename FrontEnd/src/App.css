@@ -1,3 +1,8 @@
+body {
+  background-color: #15171c;
+  color: #f1f1f1;
+}
+
 .App {
   background-color: #15171c;
   min-height: 100vh;
@@ -256,4 +261,33 @@ option:hover {
   font-size: 25px;
   margin-right: 10px;
   color: #f3912e;
+}
+
+.person {
+  height: 250px;
+  width: 250px;
+  display: inline;
+  background-color: #262c36;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  margin: 15px;
+  padding: 15px;
+}
+
+.person img {
+  height: 50px;
+  border-radius: 100%;
+}
+
+.holder {
+  margin: 30px auto;
+}
+
+.dropdown-menu {
+  background-color: #343a40;
+}
+
+.dropdown-item {
+  color: aliceblue;
 }
