@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
         <Navbar/>
-      <div className="row">
-        <SideNav/>
+      {/* <div className="row">
+        <SideNav/> */}
         <div className={"col-10" || "col-11"}>
       <IntroDiv />
       <About />
@@ -24,7 +24,7 @@ function App() {
       <Proffesional/>
       <Password/>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

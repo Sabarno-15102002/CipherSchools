@@ -117,12 +117,12 @@ option:hover{
   cursor: pointer;
   position: fixed;
 }
-.loginPopup {
+.loginPopup,.loginPopupPassword,.loginPopupIntro {
   position: relative;
   text-align: center;
   width: 100%;
 }
-.formPopup {
+.formPopup,#popupFormPassword,#popupFormIntro {
   display: none;
   position: fixed;
   left: 45%;
@@ -134,12 +134,17 @@ option:hover{
   width: 500px;
   z-index: 9;
 }
-.formContainer {
+#popupFormPassword,#popupFormIntro{
   background-color: #262c36;
   border-radius: 25px;
   padding: 8%;
 }
-.formContainer input{
+.formContainer{
+  background-color: #262c36;
+  border-radius: 25px;
+  padding: 8%;
+}
+.formContainer input,.loginPopupPassword input{
   display: block;
   margin: 15px auto;
   width: 100%;
