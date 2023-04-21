@@ -5,14 +5,6 @@ import axios from "axios";
 export default function Social() {
   const [isClicked, setClick] = useState("false");
   const [edit, setEdit] = useState("Edit");
-  // const [web, setWeb] = useState({
-  //   linkedIn: "",
-  //   github: "",
-  //   facebook: "",
-  //   twitter: "",
-  //   instagram: "",
-  //   website: "",
-  // });
   const [facebook, setFacebook] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
   const [instagram, setInstagram] = useState("");
@@ -28,15 +20,6 @@ export default function Social() {
     if (isClicked) {
       setEdit("Save");
     } else {
-      // setWeb({
-      //   linkedIn: linkedIn,
-      //   github: github,
-      //   facebook: facebook,
-      //   twitter: twitter,
-      //   instagram: instagram,
-      //   website: website,
-      // });
-      // console.log(web);
       axios
         .post("http://localhost:5000/updatesocial", { id, facebook, linkedIn, instagram, twitter, github, website })
         .then((res) => {
@@ -46,7 +29,6 @@ export default function Social() {
           console.log(err);
         });
       setEdit("Edit");
-      // setWeb()
     }
   }
   return (

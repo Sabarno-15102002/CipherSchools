@@ -124,3 +124,20 @@ exports.editUserSocial = async (req, res) => {
         res.status(400).send(err);
     }
 };
+
+exports.editUserProffesionalInfo = async (req, res) => {
+    const { id, currentEducation, highestEducation } = req.body;
+    try {
+        const updatedResult = await User.findByIdAndUpdate({ _id: id }, {
+            professional_info: {
+                highest_education: highestEducation,
+                currently_doing: currentEducation
+            },
+        }, {
+            new: true,
+        });
+        console.log(updatedResult);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
