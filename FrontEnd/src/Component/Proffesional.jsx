@@ -3,8 +3,8 @@ import axios from "axios";
 export default function Proffesional() {
   const [isClicked, setClick] = useState("false");
   const [edit, setEdit] = useState("Edit");
-  const [currentEducation, setCurrentEducation] = useState("");
-  const [highestEducation, setHighestEducation] = useState("");
+  const [currentEducation, setCurrentEducation] = useState("" || localStorage.getItem("currently_doing"));
+  const [highestEducation, setHighestEducation] = useState("" || localStorage.getItem("highest_education"));
   const token = localStorage.getItem("token");
   const claims = atob(token.split(".")[1]);
   const id = JSON.parse(claims)._id;
@@ -24,14 +24,6 @@ export default function Proffesional() {
           console.log(err);
         });
       setEdit("Edit");
-      useEffect(() => {
-        axios.get("http://localhost:5000/getAccount", { id })
-          .then((res) => {
-            setCurrentEducation(res.Account.professional_info.currently_doing);
-            setHighestEducation(res.Account.professional_info.highest_education);
-          })
-      }, [])
-
     }
   }
   return (

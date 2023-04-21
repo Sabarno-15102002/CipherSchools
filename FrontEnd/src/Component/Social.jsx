@@ -5,12 +5,12 @@ import axios from "axios";
 export default function Social() {
   const [isClicked, setClick] = useState("false");
   const [edit, setEdit] = useState("Edit");
-  const [facebook, setFacebook] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [github, setGithub] = useState("");
-  const [website, setWebsite] = useState("");
+  const [facebook, setFacebook] = useState("" || localStorage.getItem("facebook"));
+  const [linkedIn, setLinkedIn] = useState("" || localStorage.getItem("linkedin"));
+  const [instagram, setInstagram] = useState("" || localStorage.getItem("instagram"));
+  const [twitter, setTwitter] = useState("" || localStorage.getItem("twitter"));
+  const [github, setGithub] = useState("" || localStorage.getItem("github"));
+  const [website, setWebsite] = useState("" || localStorage.getItem("website"));
   const token = localStorage.getItem("token");
   const claims = atob(token.split(".")[1]);
   const id = JSON.parse(claims)._id;
@@ -29,6 +29,7 @@ export default function Social() {
           console.log(err);
         });
       setEdit("Edit");
+
     }
   }
   return (

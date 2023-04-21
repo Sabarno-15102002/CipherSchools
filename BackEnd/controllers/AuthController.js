@@ -82,6 +82,16 @@ exports.loginUser = (req, res) => {
             fname: user.fname,
             lname: user.lname,
             email: user.email,
+            facebook: user.web.facebook,
+            github: user.web.github,
+            instagram: user.web.instagram,
+            twitter: user.web.twitter,
+            linkedin: user.web.linkedin,
+            website: user.web.website,
+            currently_doing: user.professional_info.currently_doing,
+            highest_education: user.professional_info.highest_education,
+            interests: user.interests,
+            followers: user.followers,
             message: "logged in successfully",
           };
           console.log(token);
@@ -183,6 +193,19 @@ exports.editAbout = async (req, res) => {
 exports.editPassword = async (req, res) => {
   const { id, password } = req.body;
   try {
+    // bcrypt.compare(password, password).then((isMatch) => {
+    //   console.log(isMatch);
+    //   if (!isMatch) {
+    //     return res.status(400).send("Incorrect Email or Password");
+    //   }
+    //   const token = user.generateAuthToken();
+    //   let data = {
+    //     token: token,
+    //     message: "password updated in successfully",
+    //   };
+    //   console.log(token);
+    //   res.status(200).send(JSON.stringify(data));
+    // });
     const updatedResult = await User.findByIdAndUpdate(
       { _id: id },
       {
