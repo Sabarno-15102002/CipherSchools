@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 export default function Navbar() {
-  const token=localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const claims = atob(token.split('.')[1])
   const id = JSON.parse(claims)._id;
   console.log(id);
@@ -11,29 +11,18 @@ export default function Navbar() {
   function closeForm() {
     document.getElementById("popupForm").style.display = "none";
   }
-  // const [newRegister, setRegister] = useState({
-  //   fname: '',
-  //   lname: '',
-  //   email: '',
-  //   password: '',
-  //   phone: '',
-  // });
-
-  // const [newLogin, setLogin] = useState({
-  //   email: '',
-  //   password: ''
-  // });
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
   const [fname, setFName] = useState('');
   const [lname, setLName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-
   const handleSubmitSignIn = (e) => {
     e.preventDefault();
     console.log("logged in");
-
     axios.post("http://localhost:5000/login", { email, password })
       .then((res) => {
         console.log(res);
@@ -42,7 +31,6 @@ export default function Navbar() {
       }).catch((err) => {
         console.log(err);
       });
-
     setEmail('');
     setPassword('');
   }
@@ -57,25 +45,23 @@ export default function Navbar() {
         console.log(err);
       });
 
-    // setRegister({
-    //   name: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: '',
-    //   age: '',
-    //   isStudent: false
-    // });
     setFName('');
     setLName('');
     setEmail('');
     setPassword('');
     setPhone('');
+  }
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    window.location = "/";
   }
 
   return <>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">CipherSchools</a>
+      <span style={{ fontSize: "30px", cursor: "pointer" }} className="hamburger" onClick={() => openNav()}>&#9776; </span>
+      <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" className="icon-cipher" alt="icon" />
+      <a className="navbar-brand" href="#"><strong>CipherSchools</strong></a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -98,8 +84,13 @@ export default function Navbar() {
         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
       </form>
       <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={() => {
-        openForm();
-      }}>{token?"Logout":"Signup"}</button>
+        if (token) {
+          handleLogOut();
+        }
+        else {
+          openForm();
+        }
+      }}>{token ? "Logout" : "Signup"}</button>
     </nav>
     <div className="loginPopup">
       <div className="formPopup" id="popupForm">
