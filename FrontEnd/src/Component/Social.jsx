@@ -5,14 +5,14 @@ import axios from "axios";
 export default function Social() {
   const [isClicked, setClick] = useState("false");
   const [edit, setEdit] = useState("Edit");
-  const [web, setWeb] = useState({
-    linkedIn: "",
-    github: "",
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    website: "",
-  });
+  // const [web, setWeb] = useState({
+  //   linkedIn: "",
+  //   github: "",
+  //   facebook: "",
+  //   twitter: "",
+  //   instagram: "",
+  //   website: "",
+  // });
   const [facebook, setFacebook] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
   const [instagram, setInstagram] = useState("");
@@ -22,25 +22,23 @@ export default function Social() {
   const token = localStorage.getItem("token");
   const claims = atob(token.split(".")[1]);
   const id = JSON.parse(claims)._id;
-  console.log(id);
+  // console.log(id);
   function handleClick() {
     setClick(!isClicked);
     if (isClicked) {
       setEdit("Save");
     } else {
-      setWeb({
-        linkedIn: linkedIn,
-        github: github,
-        facebook: facebook,
-        twitter: twitter,
-        instagram: instagram,
-        website: website,
-      });
+      // setWeb({
+      //   linkedIn: linkedIn,
+      //   github: github,
+      //   facebook: facebook,
+      //   twitter: twitter,
+      //   instagram: instagram,
+      //   website: website,
+      // });
+      // console.log(web);
       axios
-        .post("http://localhost:5000/", {
-          id,
-          web,
-        })
+        .post("http://localhost:5000/updatesocial", { id, facebook, linkedIn, instagram, twitter, github, website })
         .then((res) => {
           console.log(res);
         })
@@ -48,7 +46,7 @@ export default function Social() {
           console.log(err);
         });
       setEdit("Edit");
-      setWeb()
+      // setWeb()
     }
   }
   return (
@@ -75,6 +73,7 @@ export default function Social() {
             <input
               type="text"
               id="linkedIn"
+              name="linkedIn"
               value={linkedIn}
               placeholder="LinkedIn"
               onChange={(e) => {
@@ -87,6 +86,7 @@ export default function Social() {
             <input
               type="text"
               id="github"
+              name="github"
               value={github}
               placeholder="Github"
               onChange={(e) => {
@@ -99,6 +99,7 @@ export default function Social() {
             <input
               type="text"
               id="facebook"
+              name="facebook"
               value={facebook}
               placeholder="Facebook"
               onChange={(e) => {
@@ -111,6 +112,7 @@ export default function Social() {
             <input
               type="text"
               id="instagram"
+              name="instagram"
               value={instagram}
               placeholder="Instagram"
               onChange={(e) => {
@@ -123,6 +125,7 @@ export default function Social() {
             <input
               type="text"
               id="twitter"
+              name="twitter"
               value={twitter}
               placeholder="Twitter"
               onChange={(e) => {
@@ -135,6 +138,7 @@ export default function Social() {
             <input
               type="text"
               id="website"
+              name="website"
               value={website}
               placeholder="Website"
               onChange={(e) => {

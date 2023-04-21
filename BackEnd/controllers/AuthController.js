@@ -104,6 +104,23 @@ exports.getAccount = async (req, res, next) => {
     }
 };
 
-// exports.editUser = async(req,res) => {
-    
-// };
+exports.editUserSocial = async (req, res) => {
+    const { id, facebook, linkedIn, instagram, twitter, github, website } = req.body;
+    try {
+        const updatedResult = await User.findByIdAndUpdate({ _id: id }, {
+            web: {
+                linkedin: linkedIn,
+                github: github,
+                facebook: facebook,
+                twitter: twitter,
+                instagram: instagram,
+                website: website
+            },
+        }, {
+            new: true,
+        });
+        console.log(updatedResult);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
