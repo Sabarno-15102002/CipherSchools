@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function IntroDiv() {
-  const fname = localStorage.getItem("fname") || "Name";
+  const fname = localStorage.getItem("fname") || "Login to view your name";
   const lname = localStorage.getItem("lname") || " ";
-  const email = localStorage.getItem("email") || "youremail@gmail.com";
+  const email = localStorage.getItem("email") || "Login to view your email";
   return (<>
     <div className="intro-div">
       <div className='row info-intro'>

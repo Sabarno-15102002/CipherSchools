@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 export default function Navbar() {
+  const token=localStorage.getItem("token");
+  const claims = atob(token.split('.')[1])
+  const id = JSON.parse(claims)._id;
+  console.log(id);
   function openForm() {
     document.getElementById("popupForm").style.display = "block";
   }
@@ -95,7 +99,7 @@ export default function Navbar() {
       </form>
       <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={() => {
         openForm();
-      }}>Signup</button>
+      }}>{token?"Logout":"Signup"}</button>
     </nav>
     <div className="loginPopup">
       <div className="formPopup" id="popupForm">
