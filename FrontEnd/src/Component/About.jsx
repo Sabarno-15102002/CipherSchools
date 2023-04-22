@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
 export default function About() {
-  const [about, setAbout] = useState("");
+  const [about, setAbout] = useState(localStorage.getItem("about")||"");
   const [isClicked, setClick] = useState("false");
+  var id="";
   const [edit, setEdit] = useState("Edit");
   const token = localStorage.getItem("token");
-  const claims = atob(token.split(".")[1]);
-  const id = JSON.parse(claims)._id;
+  if(token!=null)
+  {
+    const claims = atob(token.split('.')[1])
+    id=(JSON.parse(claims)._id);
+  }
   function handleClick() {
     setClick(!isClicked);
     if (isClicked) {
@@ -44,7 +48,8 @@ export default function About() {
         value={about}
         onChange={(e) => {
           setAbout(e.target.value);
-        }}
+        }} readOnly={isClicked}
+        className="bg-toggle"
       ></textarea>
       <hr />
     </div>

@@ -11,9 +11,14 @@ export default function Social() {
   const [twitter, setTwitter] = useState("" || localStorage.getItem("twitter"));
   const [github, setGithub] = useState("" || localStorage.getItem("github"));
   const [website, setWebsite] = useState("" || localStorage.getItem("website"));
+  var id="";
   const token = localStorage.getItem("token");
-  const claims = atob(token.split(".")[1]);
-  const id = JSON.parse(claims)._id;
+  if(token!=null)
+  {
+    const claims = atob(token.split('.')[1])
+  id=(JSON.parse(claims)._id);
+  console.log(id);
+  }
   // console.log(id);
   function handleClick() {
     setClick(!isClicked);
@@ -62,6 +67,8 @@ export default function Social() {
               onChange={(e) => {
                 setLinkedIn(e.target.value);
               }}
+              readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
           <div className="link col-lg-6">
@@ -74,7 +81,8 @@ export default function Social() {
               placeholder="Github"
               onChange={(e) => {
                 setGithub(e.target.value);
-              }}
+              }} readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
           <div className="link col-lg-6">
@@ -88,6 +96,8 @@ export default function Social() {
               onChange={(e) => {
                 setFacebook(e.target.value);
               }}
+              readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
           <div className="link col-lg-6">
@@ -101,6 +111,8 @@ export default function Social() {
               onChange={(e) => {
                 setInstagram(e.target.value);
               }}
+              readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
           <div className="link col-lg-6">
@@ -114,6 +126,8 @@ export default function Social() {
               onChange={(e) => {
                 setTwitter(e.target.value);
               }}
+              readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
           <div className="link col-lg-6">
@@ -127,6 +141,8 @@ export default function Social() {
               onChange={(e) => {
                 setWebsite(e.target.value);
               }}
+              readOnly={isClicked}
+              className="bg-toggle"
             />
           </div>
         </div>

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function Proffesional() {
-  const [isClicked, setClick] = useState("false");
+  const [isClicked, setClick] = useState(false);
   const [edit, setEdit] = useState("Edit");
   const [currentEducation, setCurrentEducation] = useState("" || localStorage.getItem("currently_doing"));
   const [highestEducation, setHighestEducation] = useState("" || localStorage.getItem("highest_education"));
+  var id="";
   const token = localStorage.getItem("token");
-  const claims = atob(token.split(".")[1]);
-  const id = JSON.parse(claims)._id;
+  if(token!=null)
+  {
+    const claims = atob(token.split('.')[1])
+    id=(JSON.parse(claims)._id);
+  console.log(id);
+  }
 
 
   function handleClick() {
@@ -43,12 +48,12 @@ export default function Proffesional() {
             <br />
             <select name="highestEducation" onChange={(e) => {
               setHighestEducation(e.target.value);
-            }} id="education">
-              <option value="Primary">Primary</option>
-              <option value="Secondary">Secondary</option>
-              <option value="Higher Secondary">Higher Secondary</option>
-              <option value="Graduation">Graduation</option>
-              <option value="Graduation">Post Graduation</option>
+            }} id="education" readOnly={isClicked} className="bg-toggle">
+              <option value="Primary" className="bg-toggle">Primary</option>
+              <option value="Secondary" className="bg-toggle">Secondary</option>
+              <option value="Higher Secondary" className="bg-toggle">Higher Secondary</option>
+              <option value="Graduation" className="bg-toggle">Graduation</option>
+              <option value="Graduation" className="bg-toggle">Post Graduation</option>
             </select>
           </div>
           <div className="col-lg-6">
@@ -56,12 +61,12 @@ export default function Proffesional() {
             <br />
             <select name="currentEducation" onChange={(e) => {
               setCurrentEducation(e.target.value);
-            }} id="education">
-              <option value="Schooling">Schooling</option>
-              <option value="College">College Student</option>
-              <option value="Teaching">Teaching</option>
-              <option value="Job">Job</option>
-              <option value="Freelancing">Freelancing</option>
+            }} id="education" className="bg-toggle">
+              <option value="Schooling" className="bg-toggle">Schooling</option>
+              <option value="College" className="bg-toggle">College Student</option>
+              <option value="Teaching" className="bg-toggle">Teaching</option>
+              <option value="Job" className="bg-toggle">Job</option>
+              <option value="Freelancing" className="bg-toggle">Freelancing</option>
             </select>
           </div>
         </div>

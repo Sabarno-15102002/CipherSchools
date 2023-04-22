@@ -13,13 +13,30 @@ export default function IntroDiv() {
   const email = localStorage.getItem("email") || "Login to view your email";
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
+  var id = "";
   const [emailid, setEmail] = useState(email);
   const [url, setUrl] = useState("");
   const [phone, setPhone] = useState("");
   const [img, setImg] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" || localStorage.getItem(img));
   const token = localStorage.getItem("token");
-  const claims = atob(token.split(".")[1]);
-  const id = JSON.parse(claims)._id;
+
+  if (token != null) {
+    const claims = atob(token.split('.')[1])
+    id = (JSON.parse(claims)._id);
+    console.log(id);
+  }
+
+  function handleSubmit(e) {
+    axios
+      .post("http://localhost:5000/updateinfo", { id, fName, lName, emailid, img })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    closeForm();
+  }
   return (
     <>
       <div className="intro-div">
@@ -31,6 +48,7 @@ export default function IntroDiv() {
               onClick={() => {
                 openForm();
               }}
+              style={{ cursor: "pointer" }}
             />
           </div>
           <div className="col-9">
@@ -63,7 +81,7 @@ export default function IntroDiv() {
               onChange={(e) => {
                 setLName(e.target.value);
               }}
-              value={fName}
+              value={lName}
               required
             />
             <input
@@ -89,20 +107,13 @@ export default function IntroDiv() {
               required
             />
             <input id="img" name="img" onChange={(e) => {
-              setImg(e.target.value);
+              setImg(JSON.stringify(e.target.value));
             }} type="file" />
             <button
               type="submit"
               className="btn btn-yellow"
-              onClick={() => {
-                axios
-                  .post("https://localhost:5000/updateinfo", { id, fName, lName, emailid, img })
-                  .then((res) => {
-                    console.log(res);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
+              onClick={(e) => {
+                handleSubmit(e);
               }}
             >
               Update

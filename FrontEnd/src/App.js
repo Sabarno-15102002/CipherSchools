@@ -34,7 +34,7 @@ function App() {
           <a href="#">
             <i className="fas fa-compass"></i>&nbsp;Trending
           </a>
-          <a href="#">
+          <a href="/follower">
             <i className="fas fa-user"></i>&nbsp;Following
           </a>
           <a href="#">

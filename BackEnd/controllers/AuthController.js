@@ -206,7 +206,7 @@ exports.editPassword = async (req, res) => {
     const updatedResult = await User.findByIdAndUpdate({ _id: id }, {
       password: npassword
     }, {
-      new: true
+      new: true,
     }).then((user) => {
       const newtoken = user.generateAuthToken();
       let data = {
@@ -224,7 +224,7 @@ exports.editPassword = async (req, res) => {
 exports.editInfo = async (req, res) => {
   const { id, fName, lName, emailid, img } = req.body;
   try {
-    const imageResult = await cloudinary.uploader.upload(img.image?.content, {
+    const imageResult = await cloudinary.uploader.upload(img, {
       folder: req.body.title,
       width: 1920,
       crop: "scale"
@@ -239,7 +239,7 @@ exports.editInfo = async (req, res) => {
         url: imageResult.secure_url
       }
     }, {
-      new: true
+      new: true,
     }).then((user) => {
       const newImg = user.profile_pic.url;
       let data = {
@@ -249,6 +249,7 @@ exports.editInfo = async (req, res) => {
     });
     console.log(updatedResult);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 };

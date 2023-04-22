@@ -6,6 +6,7 @@ export default function Password() {
   const [cpassword, setCPassword] = useState("");
   const [password, setPassword] = useState("");
   const [npassword, setNPassword] = useState("");
+  var id = "";
   const [conpassword, setConPassword] = useState("");
   function openForm() {
     document.getElementById("popupFormPassword").style.display = "block";
@@ -14,19 +15,23 @@ export default function Password() {
     document.getElementById("popupFormPassword").style.display = "none";
   }
   const token = localStorage.getItem("token");
-  const claims = atob(token.split(".")[1]);
-  const id = JSON.parse(claims)._id;
-  function handlePasswordUpdate() {
-
+  if (token != null) {
+    const claims = atob(token.split('.')[1])
+    id = (JSON.parse(claims)._id);
+    console.log(id);
+  }
+  function handlePasswordUpdate(e) {
+    e.preventDefault();
     if (npassword === conpassword) {
       axios
-        .post("https://localhost:5000/updatepassword", { id, cpassword, npassword })
+        .post("http://localhost:5000/updatepassword", { id, cpassword, npassword })
         .then((res) => {
           console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
+      window.location = "/";
     }
     else {
       console.log("Please Confirm Your New Password")
@@ -42,8 +47,8 @@ export default function Password() {
         <div className="col-6">
           <button
             className="btn btn-sm btn-yellow"
-            onClick={() => {
-              handlePasswordUpdate();
+            onClick={(e) => {
+              handlePasswordUpdate(e);
               openForm();
             }}
           >
@@ -60,6 +65,7 @@ export default function Password() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            className="bg-toggle"
           />
         </div>
       </div>
@@ -77,6 +83,7 @@ export default function Password() {
             }}
             value={cpassword}
             required
+            className="bg-toggle"
           />
           <input
             type="password"
@@ -88,6 +95,7 @@ export default function Password() {
             }}
             value={npassword}
             required
+            className="bg-toggle"
           />
           <input
             type="password"
@@ -99,6 +107,7 @@ export default function Password() {
             }}
             value={conpassword}
             required
+            className="bg-toggle"
           />
           <button type="submit" className="btn btn-yellow" onClick={() => {
             handlePasswordUpdate();

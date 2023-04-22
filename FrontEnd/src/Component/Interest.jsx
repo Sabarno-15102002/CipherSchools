@@ -3,10 +3,15 @@ import React, { useState } from "react";
 export default function Interest() {
     const [interest, setinterest] = useState([]);
     const [isClicked, setClick] = useState("false");
-    const [edit, setEdit] = useState("Edit");
+    var id="";
+  const [edit, setEdit] = useState("Edit");
     const token = localStorage.getItem("token");
-    const claims = atob(token.split(".")[1]);
-    const id = JSON.parse(claims)._id;
+  if(token!=null)
+  {
+    const claims = atob(token.split('.')[1])
+    id=(JSON.parse(claims)._id);
+  console.log(id);
+  }
     function handleClick() {
         setClick(!isClicked);
         if (isClicked) {
@@ -45,6 +50,8 @@ export default function Interest() {
                 onChange={(e) => {
                     setinterest(e.target.value);
                 }}
+                className="bg-toggle"
+                readOnly={isClicked}
             ></textarea>
         </div>
     );
